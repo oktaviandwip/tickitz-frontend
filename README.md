@@ -23,7 +23,7 @@ yarn dev
 ```
 
 ## UI/UX
-<img src="./src/assets/tickitz - home.png">
+<img src="./public/tickitz - home.png">
 
 ## React + Vite
 
