@@ -283,7 +283,7 @@ const Header = ({ userRole }) => {
           onClick={handleMenuClick}
         />
         <aside
-          className={`sidebar fixed top-0 bottom-0 right-0 w-[200px] ${
+          className={`md:hidden fixed top-0 bottom-0 right-0 w-[200px] ${
             isSidebarOpen ? "translate-x-0" : "translate-x-64"
           } flex-col bg-white shadow-md transition-transform duration-300`}
         >
