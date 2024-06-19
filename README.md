@@ -22,14 +22,23 @@ npm run dev
 yarn dev
 ```
 
-## UI/UX
-<img src="./public/tickitz - home.png">
+## 💻 Built with
 
-## React + Vite
+- [![React][React.js]][React-url]
+- [![Tailwind][Tailwind-CSS]][Tailwind-url]
+- [![Redux][Redux]][Redux-url]
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Tailwind-CSS]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind-url]: https://tailwindcss.com/
+[Redux]: https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white
+[Redux-url]: https://redux.js.org/
 
-Currently, two official plugins are available:
+## 🎨 UI/UX
+<img src="./public/tickitz - home.png" alt="tickitz - home">
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<hr>
+<p align="center">
+Developed with ❤️ in Indonesia 	🇮🇩
+</p>
