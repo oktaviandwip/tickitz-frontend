@@ -5,7 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import store from "./store";
-import router from "./router";
+import router from "../utils/router";
 import "./index.css";
 
 const persist = persistStore(store);

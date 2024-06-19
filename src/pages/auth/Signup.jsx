@@ -1,45 +1,65 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Icon from "../components/Login/Icon.jsx";
-import Background from "../components/Login/Background.jsx";
-import numberOne from "../assets/number-1.svg";
-import numberTwo from "../assets/number-2.svg";
-import numberThree from "../assets/number-3.svg";
-import stripe from "../assets/stripe.svg";
-import EmailPassword from "../components/Login/EmailPassword.jsx";
-import Button from "../components/Movies/Button.jsx";
-import GoogleFb from "../components/Login/GoogleFb.jsx";
-import useApi from "../../utils/useApi.js";
+
+import Icon from "../../components/auth/TickitzIcon.jsx";
+import Background from "../../components/auth/Background.jsx";
+import numberOne from "../../assets/number-1.svg";
+import numberTwo from "../../assets/number-2.svg";
+import numberThree from "../../assets/number-3.svg";
+import stripe from "../../assets/stripe.svg";
+import EmailPassword from "../../components/auth/EmailPassword.jsx";
+import Button from "../../components/elements/Button.jsx";
+import GoogleFb from "../../components/auth/GoogleFb.jsx";
+import useApi from "../../../utils/useApi.js";
 
 const SignUp = () => {
-  const navigate = useNavigate();
   const api = useApi();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
 
+  // Handle Change
   const handleChange = (e) => {
     const data = { ...formData };
     data[e.target.name] = e.target.value;
     setFormData(data);
   };
 
+  // Handle Submit
   const handleSubmit = (e) => {
     e.preventDefault();
     {
       api({
         method: "POST",
-        url: "/users/sign-up",
+        url: "/users",
         data: formData,
       })
         .then((_) => {
           alert("Registration succesful!");
-          navigate("/sign-in");
+          navigate("/login");
         })
-        .catch((err) => {
-          alert("ERROR: Email has been used!");
-          console.log(err);
+        .catch(({ response }) => {
+          console.log(response.data);
+          alert(`ERROR: ${response.data.error}`);
         });
     }
   };
+
+  // Input Fields
+  const inputs = [
+    {
+      icon: "mage:email",
+      type: "email",
+      name: "email",
+      placeholder: "Enter your email",
+      autoComplete: "email",
+    },
+    {
+      icon: "codicon:lock",
+      type: "password",
+      name: "password",
+      placeholder: "Enter your password",
+    },
+  ];
 
   return (
     <div className="mt-[-104px]">
@@ -66,39 +86,29 @@ const SignUp = () => {
 
             <form
               onSubmit={handleSubmit}
-              className="w-[100%] h-[330px] md:h-[360px] flex flex-col justify-between"
+              className="w-full h-[345px] md:h-[360px] flex flex-col gap-y-[27px]"
             >
-              <EmailPassword
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                label="Email"
-              />
-              <EmailPassword
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                label="Password"
-              />
+              {inputs.map((field, index) => (
+                <EmailPassword
+                  key={index}
+                  name={field.name}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  icon1={field.type === "password" ? "mage:eye" : ""}
+                  icon2={field.type === "password" ? "mage:eye-off" : ""}
+                  onChange={handleChange}
+                />
+              ))}
 
-              <div className="flex items-center mb-6">
+              <label className="flex items-center text-sm md:text-lg text-darkest-grey tracking-wider">
                 <input
                   type="checkbox"
                   id="terms-conditions"
-                  className="w-5 h-5 mr-3 md:mr-6"
+                  className="size-5 mr-3 md:mr-6"
                   required
                 />
-                <label
-                  htmlFor="terms-conditions"
-                  className="text-sm md:text-lg text-darkest-grey font-mulish tracking-[0.75px]"
-                >
-                  I agree to terms & conditions
-                </label>
-              </div>
+                I agree to terms & conditions
+              </label>
 
               <Button
                 text={"Join For Free Now"}
@@ -107,9 +117,9 @@ const SignUp = () => {
               />
             </form>
 
-            <p className="text-darkest-grey text-center tracking-[0.5px] font-inter md:font-semibold mt-6">
-              Already have an account?{" "}
-              <Link to="/sign-in" className="text-blue underline">
+            <p className="text-darkest-grey text-center tracking-wider font-inter md:font-semibold mt-6">
+              <span>Already have an account? </span>
+              <Link to="/login" className="text-blue underline">
                 Log in
               </Link>
             </p>

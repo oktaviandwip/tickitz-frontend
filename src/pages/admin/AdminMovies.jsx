@@ -1,70 +1,79 @@
 import { useState, useEffect } from "react";
-import Header from "../components/Header";
-import calendarIcon from "../assets/calendar-icon.svg";
-import dropdown from "../assets/dropdown.svg";
-import nextPage from "../assets/next-page.svg";
-import ListMovie from "../components/Admin/ListMovie";
-import useApi from "../../utils/useApi";
 import { useNavigate } from "react-router-dom";
-import addMovies from "../assets/add-movies.svg";
+
+import Header from "../../components/elements/Header";
+import ListMovie from "../../components/admin/ListMovie";
+import Pagination from "../../components/elements/Pagination";
+
+import calendarIcon from "../../assets/calendar-icon.svg";
+import dropdown from "../../assets/dropdown.svg";
+import addMovies from "../../assets/add-movies.svg";
+import useApi from "../../../utils/useApi";
 
 const AdminMovies = () => {
-  const navigate = useNavigate();
   const api = useApi();
-  const [data, setData] = useState(null);
-  const [date, setDate] = useState("");
-  const [page, setPage] = useState(1);
-  const [pageNumber, setPageNumber] = useState(0);
-  const pagesArr = [...Array(pageNumber)].map((_, i) => i + 1);
-  const pages =
-    pageNumber <= 4 ? pagesArr : page > 4 ? pageArrMaker(page) : [1, 2, 3, 4];
-  const [isSorting, setIsSorting] = useState(false);
-  const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate();
 
+  const [data, setData] = useState(null);
+  const [date, setDate] = useState(null);
+  const [pageLength, setPageLength] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [isSorting, setIsSorting] = useState(false);
+  const [displayDate, setDisplayDate] = useState("dd/mm/yyyy");
+
+  // Handle Format Date
+  const formatDateToDisplay = (dateStr) => {
+    const [year, month, day] = dateStr.split("-");
+    return `${day}/${month}/${year}`;
+  };
+
+  // Handle Date Change
+  const handleDateChange = (e) => {
+    const inputDate = e.target.value;
+    setDate(inputDate);
+    setDisplayDate(formatDateToDisplay(inputDate));
+  };
+
+  // Get Movie List
   useEffect(() => {
     api({
       method: "GET",
       url: "/admin/movies?page=1",
     })
-      .then((res) => {
-        setData(res.data.rows);
-        setPageNumber(Math.ceil(res.data.meta.total / 5));
+      .then(({ data }) => {
+        setData(data.rows);
+        setPageLength(Math.ceil(data.meta.total / 5));
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(({ response }) => {
+        console.log(response.data);
+        alert(`ERROR: ${response.data.error}`);
       });
   }, []);
 
-  // Sorting
-  const handleDateChange = (newDate) => {
-    setDate(newDate);
-  };
-
-  const handleDateSorting = (date, page) => {
+  // Sort by Date
+  const handleDateSorting = (page) => {
     api({
       method: "GET",
       url: `/admin/movies?date=${date}&page=${page}`,
     })
       .then((res) => {
         setData(res.data.rows);
-        setPageNumber(Math.ceil(res.data.meta.total / 5));
+        setPageLength(Math.ceil(res.data.meta.total / 5));
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(({ response }) => {
+        console.log(response.data);
+        alert(`ERROR: ${response.data.error}`);
       });
   };
 
-  // Pagination
-  function pageArrMaker(n) {
-    const result = [];
-    for (let i = n - 3; i <= n; i++) {
-      if (i > 0) {
-        result.push(i);
-      }
+  useEffect(() => {
+    setIsSorting(true);
+    if (date !== null) {
+      handleDateSorting(1);
     }
-    return result;
-  }
+  }, [date]);
 
+  // Handle Pagination
   const handlePagination = (page) => {
     api({
       method: "GET",
@@ -73,17 +82,10 @@ const AdminMovies = () => {
       .then((res) => {
         setData(res.data.rows);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(({ response }) => {
+        console.log(response.data);
+        alert(`ERROR: ${response.data.error}`);
       });
-  };
-
-  useEffect(() => {
-    setActivePage(1);
-  }, [pageNumber]);
-
-  const handleActivePage = (page) => {
-    setActivePage(page);
   };
 
   const headerItems = [
@@ -124,19 +126,18 @@ const AdminMovies = () => {
                     <img src={dropdown} alt="dropdown icon" className="z-10" />
                   </div>
 
-                  <div className="w-full md:w-[200px] lg:w-[284px] h-14 bg-[#EFF0F6] rounded-md mr-[14px]">
+                  <div className="relative w-full md:w-[200px] lg:w-[284px] h-14 bg-[#EFF0F6] rounded-md mr-[14px]">
+                    <input
+                      type="text"
+                      value={displayDate}
+                      readOnly
+                      className="absolute top-[2px] left-0 w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[14px] z-20"
+                    />
                     <input
                       type="date"
-                      id="date"
                       value={date}
-                      className="relative w-[300px] md:w-[210px] lg:w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[14px] z-20"
-                      onChange={(e) => {
-                        handleDateChange(e.target.value);
-                        handleDateSorting(e.target.value, 1);
-                        setIsSorting(true);
-                        setPage(1);
-                        setActivePage(1);
-                      }}
+                      className="relative w-full opacity-0 outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[14px] z-20"
+                      onChange={handleDateChange}
                     />
                     <style>
                       {`
@@ -177,24 +178,23 @@ const AdminMovies = () => {
 
               <div className="w-[285px] h-14 bg-[#EFF0F6] rounded-md">
                 <input
+                  type="text"
+                  value={displayDate}
+                  readOnly
+                  className="absolute top-[2px] left-0 w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[14px] z-20"
+                />
+                <input
                   type="date"
-                  id="date"
                   value={date}
-                  className="relative w-[300px] md:w-[210px] lg:w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[14px] z-20"
-                  onChange={(e) => {
-                    handleDateChange(e.target.value);
-                    handleDateSorting(e.target.value, 1);
-                    setIsSorting(true);
-                    setPage(1);
-                    setActivePage(1);
-                  }}
+                  className="relative w-full opacity-0 outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[14px] z-20"
+                  onChange={handleDateChange}
                 />
                 <style>
                   {`
-                        input[type="date"]::-webkit-calendar-picker-indicator {
-                          opacity: 0;
-                        }
-                      `}
+                    input[type="date"]::-webkit-calendar-picker-indicator {
+                      opacity: 0;
+                    }
+                  `}
                 </style>
               </div>
             </div>
@@ -220,15 +220,16 @@ const AdminMovies = () => {
                   data.map((e, index) => {
                     return (
                       <ListMovie
-                        key={e.movie_id}
-                        id={e.movie_id}
-                        no={(page - 1) * 5 + index + 1}
+                        key={e.id}
+                        id={e.id}
+                        no={(pageNumber - 1) * 5 + index + 1}
                         image={e.image}
                         name={e.movie_name}
                         category={e.category}
                         hours={e.hours}
                         minutes={e.minutes}
                         release_date={e.release_date}
+                        detail={e.detail}
                       />
                     );
                   })}
@@ -236,67 +237,14 @@ const AdminMovies = () => {
             </div>
 
             {/* Pagination */}
-            <div className="my-3">
-              <nav className="w-[327px] md:w-full mt-6">
-                <ul className=" flex justify-center">
-                  <img
-                    src={nextPage}
-                    alt="previous page"
-                    className={`${
-                      page <= 4 ? "hidden" : "flex"
-                    } mr-3 md:mr-5 transform rotate-180`}
-                    onClick={() => {
-                      const prevPage = page > 1 ? page - 1 : page;
-                      handleActivePage(prevPage);
-                      if (isSorting) {
-                        handleDateSorting(date, prevPage);
-                      } else {
-                        handlePagination(prevPage);
-                      }
-                      setPage(prevPage);
-                    }}
-                  />
-
-                  {pages.map((page) => (
-                    <div
-                      key={page}
-                      type="button"
-                      className={`rounded-[8px] px-[15px] py-[8px] mr-3 md:mr-5 ${
-                        page === activePage
-                          ? "bg-blue text-white shadow-xl"
-                          : "bg-light-grey text-dark-grey"
-                      }`}
-                      onClick={() => {
-                        setPage(page);
-                        handleActivePage(page);
-                        if (isSorting) {
-                          console.log(page);
-                          handleDateSorting(date, page);
-                        } else {
-                          handlePagination(page);
-                        }
-                      }}
-                    >
-                      {page}
-                    </div>
-                  ))}
-                  <img
-                    src={nextPage}
-                    alt="next page"
-                    className={`${pageNumber < 4 ? "hidden" : "flex"}`}
-                    onClick={() => {
-                      const nextPage = page < pageNumber ? page + 1 : page;
-                      handleActivePage(nextPage);
-                      if (isSorting) {
-                        handleDateSorting(date, nextPage);
-                      } else {
-                        handlePagination(nextPage);
-                      }
-                      setPage(nextPage);
-                    }}
-                  />
-                </ul>
-              </nav>
+            <div className="flex flex-col items-center mt-10">
+              <Pagination
+                radius={"[8px]"}
+                pageLength={pageLength}
+                pageNumber={pageNumber}
+                setPageNumber={setPageNumber}
+                handleClick={isSorting ? handleDateSorting : handlePagination}
+              />
             </div>
           </div>
         </main>

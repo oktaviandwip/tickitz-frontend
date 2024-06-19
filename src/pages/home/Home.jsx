@@ -1,29 +1,47 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Advantage from "../components/Home/Advantage";
-import Movie from "../components/Home/Movie";
-import Title from "../components/Home/Title";
-import Newsletter from "../components/Home/Newsletter";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-import jhonWick3 from "../assets/jhon-wick-3.png";
-import spiderman from "../assets/spiderman-homecoming.png";
-import lionKing from "../assets/lion-king.png";
-import roblox from "../assets/roblox.jpg";
-import blackWidow from "../assets/black-widow.svg";
-import theWitches from "../assets/the-witches.svg";
-import tenet from "../assets/tenet.svg";
+import Header from "../../components/elements/Header";
+import Footer from "../../components/elements/Footer";
+import Advantage from "../../components/home/Advantage";
+import Movie from "../../components/home/Movie";
+import Title from "../../components/home/Title";
+import Newsletter from "../../components/home/Newsletter";
+import Arrow from "../../components/home/Arrow";
 
-import guranteed from "../assets/guaranteed.svg";
-import affordable from "../assets/affordable.svg";
-import customerSupport from "../assets/customer-support.svg";
-import rightArrow from "../assets/blue-arrow-right.svg";
-import nextArrow from "../assets/next-arrow.png";
-import nextArrowClicked from "../assets/next-arrow-clicked.png";
-import backArrow from "../assets/back-arrow.png";
-import backArrowClicked from "../assets/back-arrow-clicked.png";
-import Arrow from "../components/Home/Arrow";
+import jhonWick3 from "../../assets/jhon-wick-3.png";
+import spiderman from "../../assets/spiderman-homecoming.png";
+import lionKing from "../../assets/lion-king.png";
+import roblox from "../../assets/roblox.jpg";
+import blackWidow from "../../assets/black-widow.svg";
+import theWitches from "../../assets/the-witches.svg";
+import tenet from "../../assets/tenet.svg";
 
-const home = () => {
+import guranteed from "../../assets/guaranteed.svg";
+import affordable from "../../assets/affordable.svg";
+import customerSupport from "../../assets/customer-support.svg";
+import rightArrow from "../../assets/blue-arrow-right.svg";
+import nextArrow from "../../assets/next-arrow.png";
+import nextArrowClicked from "../../assets/next-arrow-clicked.png";
+import backArrow from "../../assets/back-arrow.png";
+import backArrowClicked from "../../assets/back-arrow-clicked.png";
+
+const Home = () => {
+  const [startIndex, setStartIndex] = useState(0);
+
+  // Handle Arrow Click
+  const handleArrowClick = (e) => {
+    const name = e.currentTarget.getAttribute("data-name");
+    console.log(name);
+    if (name === "next" && startIndex + 4 < recommended.length) {
+      setStartIndex(startIndex + 1);
+    }
+
+    if (name === "back" && startIndex > 0) {
+      setStartIndex(startIndex - 1);
+    }
+  };
+
   const recommended = [
     {
       image: blackWidow,
@@ -31,7 +49,7 @@ const home = () => {
       genres: ["Action", "Adventure"],
       recommended: false,
       date: "December 2024",
-      detail: "#",
+      detail: "/movies/black-widow",
       ticket: "#",
     },
 
@@ -41,7 +59,7 @@ const home = () => {
       genres: ["Comedy", "Adventure"],
       recommended: true,
       date: "January 2024",
-      detail: "#",
+      detail: "/movies/the-witches",
       ticket: "#",
     },
 
@@ -51,7 +69,7 @@ const home = () => {
       genres: ["Action", "Sci-Fi"],
       recommended: true,
       date: "June 2024",
-      detail: "#",
+      detail: "/movies/tenet",
       ticket: "#",
     },
 
@@ -61,7 +79,34 @@ const home = () => {
       genres: ["Action", "Adventure"],
       recommended: false,
       date: "March 2024",
-      detail: "/spiderman-homecoming",
+      detail: "/movies/spiderman-homecoming",
+      ticket: "#",
+    },
+    {
+      image: lionKing,
+      name: "Lion King",
+      genres: ["Drama", "Adventure"],
+      recommended: true,
+      date: "December 2024",
+      detail: "/movies/lion-king",
+      ticket: "#",
+    },
+    {
+      image: jhonWick3,
+      name: "Jhon Wick 3",
+      genres: ["Action", "Adventure"],
+      recommended: true,
+      date: "November 2024",
+      detail: "/movies/jhon-wick-3",
+      ticket: "#",
+    },
+    {
+      image: roblox,
+      name: "Roblox",
+      genres: ["Comedy", "Adventure"],
+      recommended: false,
+      date: "September 2024",
+      detail: "/movies/roblox",
       ticket: "#",
     },
   ];
@@ -144,10 +189,65 @@ const home = () => {
           position={"center"}
         />
 
-        <div className="whitespace-nowrap overflow-x-auto">
-          <div className="grid grid-cols-4 grid-flow-col w-[1000px] md:w-[1106px]">
+        <div className="whitespace-nowrap overflow-x-scroll">
+          <div className="grid grid-cols-4 w-[1000px] md:w-[1106px] pl-1">
             {recommended &&
-              recommended.slice(0, 4).map((e, index) => {
+              recommended.map((e, index) => {
+                if (e.recommended) {
+                  return (
+                    <Movie
+                      key={index}
+                      image={e.image}
+                      name={e.name}
+                      genres={e.genres}
+                      recommended={e.recommended}
+                      detail={e.detail}
+                    />
+                  );
+                }
+              })}
+          </div>
+        </div>
+
+        <Link
+          to="/movies"
+          className="w-full flex justify-center items-center text-lg text-blue font-bold leading-[34px] mt-6"
+        >
+          View All
+          <div
+            className="w-5 h-5 bg-cover bg-center bg-no-repeat ml-2"
+            style={{ backgroundImage: `url(${rightArrow})` }}
+          ></div>
+        </Link>
+
+        {/* Upcoming Movies */}
+        <div className="relative flex flex-col md:flex-row items-center">
+          <Title
+            title={"UPCOMING MOVIES"}
+            subTitle={"Exciting Movie Coming Soon"}
+            position={null}
+          />
+
+          <div className="absolute bottom-[-670px] md:top-20 right-50 md:right-0 flex justify-between w-[147px] z-50">
+            <Arrow
+              data-name="back"
+              arrow={backArrow}
+              activeArrow={backArrowClicked}
+              handleArrowClick={handleArrowClick}
+            />
+            <Arrow
+              data-name="next"
+              arrow={nextArrow}
+              activeArrow={nextArrowClicked}
+              handleArrowClick={handleArrowClick}
+            />
+          </div>
+        </div>
+
+        <div className="whitespace-nowrap overflow-x-scroll mb-[125px] md:mb-0">
+          <div className="grid grid-cols-4 w-[1000px] md:w-[1106px] pl-1">
+            {recommended &&
+              recommended.slice(startIndex, startIndex + 4).map((e, index) => {
                 return (
                   <Movie
                     key={index}
@@ -155,46 +255,6 @@ const home = () => {
                     name={e.name}
                     genres={e.genres}
                     recommended={e.recommended}
-                    detail={e.detail}
-                  />
-                );
-              })}
-          </div>
-        </div>
-
-        <div className="w-full flex justify-center items-center text-lg text-blue font-bold leading-[34px] mt-6">
-          View All
-          <div
-            className="w-5 h-5 bg-[image:var(--right-arrow)] bg-cover bg-center bg-no-repeat ml-2"
-            style={{ "--right-arrow": `url(${rightArrow})` }}
-          ></div>
-        </div>
-
-        {/* Upcoming Movies */}
-        <div className="flex items-center">
-          <Title
-            title={"UPCOMING MOVIES"}
-            subTitle={"Exciting Movie Coming Soon"}
-            position={null}
-          />
-
-          <div className="hidden md:flex justify-between w-[170px] mt-[50px] ">
-            <Arrow arrow={backArrow} activeArrow={backArrowClicked} />
-            <Arrow arrow={nextArrow} activeArrow={nextArrowClicked} />
-          </div>
-        </div>
-
-        <div className="whitespace-nowrap overflow-x-auto">
-          <div className="grid grid-cols-4 grid-rows-1 w-[1000px] md:w-[1106px]">
-            {recommended &&
-              recommended.slice(0, 4).map((e, index) => {
-                return (
-                  <Movie
-                    key={index}
-                    image={e.image}
-                    name={e.name}
-                    genres={e.genres}
-                    recommended={false}
                     upcoming={true}
                     date={e.date}
                     detail={e.detail}
@@ -212,4 +272,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default Home;

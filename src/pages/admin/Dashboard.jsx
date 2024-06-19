@@ -1,5 +1,5 @@
-import Chart from "../components/Dashboard/Chart";
-import Header from "../components/Header";
+import Chart from "../../components/dashboard/Chart";
+import Header from "../../components/elements/Header";
 
 const Dashboard = () => {
   const data1 = [

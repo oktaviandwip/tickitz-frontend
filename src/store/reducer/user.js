@@ -1,34 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
-  name: "users",
+  name: "user",
   initialState: {
-    isAuth: false,
-    token: "",
-    role: "",
-    user_id: 0,
+    profile: {},
   },
   reducers: {
-    login(state, actions) {
+    getProfile(state, actions) {
       return {
         ...state,
-        isAuth: true,
-        token: actions.payload.token,
-        role: actions.payload.role,
-        user_id: actions.payload.user_id,
-      };
-    },
-    logout(state, actions) {
-      return {
-        ...state,
-        isAuth: false,
-        token: "",
-        role: "",
-        user_id: 0,
+        profile: actions.payload,
       };
     },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { getProfile } = userSlice.actions;
 export default userSlice.reducer;

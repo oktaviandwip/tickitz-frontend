@@ -1,6 +1,6 @@
 import { useState } from "react";
 import dropdown from "../../assets/dropdown.svg";
-import Button from "../../components/Movies/Button";
+import Button from "../elements/Button";
 import graph from "../../assets/graph.png";
 
 const Chart = ({ title, data1, data2 }) => {

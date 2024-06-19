@@ -1,39 +1,44 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import bgImages from "../assets/bg-spiderman.svg";
-import spiderman from "../assets/spiderman-homecoming.png";
-import calendar from "../assets/calendar-icon.svg";
-import time from "../assets/time-icon.svg";
-import location from "../assets/location.svg";
-import dropdown from "../assets/dropdown.svg";
-import Button from "../components/Movies/Button";
-import Pagination from "../components/Movies/Pagination";
-import ebvid from "../assets/ebv-id.svg";
-import hiflix from "../assets/hiflix.svg";
-import cineone21 from "../assets/CineOne21.svg";
-import useApi from "../../utils/useApi";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import Header from "../../components/elements/Header";
+import Footer from "../../components/elements/Footer";
+import Button from "../../components/elements/Button";
+import Pagination from "../../components/elements/Pagination";
+
+import calendar from "../../assets/calendar-icon.svg";
+import time from "../../assets/time-icon.svg";
+import location from "../../assets/location.svg";
+import dropdown from "../../assets/dropdown.svg";
+import ebvid from "../../assets/ebv-id.svg";
+import hiflix from "../../assets/hiflix.svg";
+import cineone21 from "../../assets/CineOne21.svg";
+import useApi from "../../../utils/useApi";
+
 const MovieDetails = () => {
   const api = useApi();
-  const { movie_name } = useParams();
-  const [details, setDetails] = useState([]);
+  const { name } = useParams();
 
+  const [details, setDetails] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [startIndex, setStartIndex] = useState(0);
+
+  // Get Movie Data
   useEffect(() => {
     api({
       method: "GET",
-      url: `/movies/${movie_name}`,
+      url: `/movies?name=${name}`,
     })
       .then(({ data }) => {
-        console.log(data.rows[0]);
         setDetails(data.rows[0]);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(({ response }) => {
+        console.log(response.data);
+        alert(`ERROR: ${response.data.error}`);
       });
   }, []);
 
+  // Bookings Field
   const bookings = [
     ["Date", "date", calendar, "2024-02-28"],
     ["Time", "time", time, "08:30"],
@@ -45,26 +50,39 @@ const MovieDetails = () => {
     ],
   ];
 
-  const cinemas = [ebvid, hiflix, cineone21, ebvid];
+  // Cinemas
+  const cinemas = [ebvid, hiflix, cineone21, ebvid, hiflix, cineone21];
+
+  // Pagination
+  const handlePageClick = (page) => {
+    setStartIndex(page * 4 - 4);
+  };
 
   return (
     <>
       <Header />
+      {/* Hero Section */}
       <div
-        className="w-full h-[475px] md:h-[415px] shadow-inset bg-cover bg-no-repeat"
+        className="w-full h-[475px] md:h-[415px] shadow-inset bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${details.image})`,
-          backgroundPosition: "80% 0%",
+          backgroundPosition: "0 10%",
         }}
       />
+
       <main className="w-[327px] md:w-[768px] lg:w-[1000px] xl:w-[1106px] mx-auto">
         <div className="relative flex flex-col md:flex-row justify-start items-center">
-          <img
-            src={details.image}
-            alt="movie image"
-            className="mt-[-334px] md:mt-[-163px] w-[327px] h-[502px] md:w-[264px] md:h-[405px] md:mr-5"
+          {/* Movie Image */}
+          <div
+            className="mt-[-334px] md:mt-[-163px] w-[327px] h-[502px] md:h-[405px] md:mr-5 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${details.image})`,
+            }}
           />
+
+          {/* Movie Details */}
           <div className="w-full flex flex-col items-center md:items-start">
+            {/* Name & Genres */}
             <div className=" text-center md:text-left text-xl md:text-[32px] leading-[34px] font-bold tracking-[1px] my-6">
               {details.movie_name}
             </div>
@@ -73,12 +91,14 @@ const MovieDetails = () => {
                 details.category.map((genre, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 mb-2 rounded-full text-dark-grey bg-light-grey tracking-[0.75px]"
+                    className="px-3 py-1 mb-2 rounded-full text-dark-grey bg-light-grey tracking-wider"
                   >
                     {genre}
                   </span>
                 ))}
             </div>
+
+            {/* Details */}
             <div className="w-full flex mt-3">
               <div className="w-[160px] mr-6 md:mr-8 lg:mr-14 mb-3">
                 <div className="text-sm text-dark-grey leading-6 tracking-[0.75px]">
@@ -121,13 +141,14 @@ const MovieDetails = () => {
             </div>
           </div>
         </div>
-
+        {/* Synopsis */}
         <div>
           <div className="text-xl font-semibold mt-8 mb-1">Synopsis</div>
           <div className="md:w-[700px] lg:w-[821px] text-dark-grey leading-8 tracking-[0.75px]">
             {details.synopsis}
           </div>
         </div>
+        {/* Booking Tickets */}
         <form>
           <div className="text-[32px] leading-[45px] tracking-[1px] mt-[55px] mb-[22px] md:mb-[38px]">
             Book Tickets
@@ -167,7 +188,8 @@ const MovieDetails = () => {
                   )}
                   <style>
                     {`
-                      input[type="date"]::-webkit-calendar-picker-indicator {
+                      input[type="date"]::-webkit-calendar-picker-indicator,
+                      input[type="time"]::-webkit-calendar-picker-indicator {
                         opacity: 0;
                       }
                     `}
@@ -178,34 +200,47 @@ const MovieDetails = () => {
             <Button text={"Filter"} width={"[188px]"} height={"[56px]"} />
           </div>
 
+          {/* Choose Cinemas */}
           <div className="flex flex-col items-center">
             <div className="w-full flex space-x-[34px] justify-center md:justify-start items-center my-10">
               <div className="text-xl font-semibold leading-[34px] tracking-[0.5px]">
                 Choose Cinema
               </div>
               <div className="text-lg text-dark-grey font-bold leading-6 tracking-[0.75px]">
-                39 Result
+                {cinemas.length} Result
               </div>
             </div>
-            <div className="w-full flex flex-col md:flex-row justify-between space-y-[40px] md:space-y-0">
-              {cinemas.map((e, index) => (
-                <div
-                  key={index}
-                  className="w-[327px] md:w-[180px] lg:w-[240px] xl:w-[264px] h-[157px] md:h-[120px] lg:h-[157px] border-2 flex justify-center items-center border-grey rounded-[8px]"
-                >
+
+            {/* Cinema List */}
+            <div className="w-full flex flex-col md:flex-row justify-start gap-5">
+              {cinemas
+                .slice(startIndex, startIndex + 4)
+                .map((cinema, index) => (
                   <div
-                    className="w-[150px] h-[83px] bg-contain bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(${e})` }}
-                  ></div>
-                </div>
-              ))}
+                    key={index}
+                    className="w-[327px] md:w-[180px] lg:w-[240px] xl:w-[264px] h-[157px] md:h-[120px] lg:h-[157px] border-2 flex justify-center items-center border-grey rounded-[8px]"
+                  >
+                    <div
+                      className="w-[150px] h-[83px] bg-contain bg-center bg-no-repeat"
+                      style={{ backgroundImage: `url(${cinema})` }}
+                    />
+                  </div>
+                ))}
             </div>
-            <div className="my-10">
-              <Pagination radius={"[8px]"} />
-            </div>
-            <Button text={"Book Now"} width={"[188px]"} height={"[56px]"} />
           </div>
         </form>
+
+        {/* Pagination */}
+        <div className="flex flex-col items-center gap-y-10 mt-10">
+          <Pagination
+            radius={"[8px]"}
+            pageLength={Math.ceil(cinemas.length / 4)}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            handleClick={handlePageClick}
+          />
+          <Button text={"Book Now"} width={"[188px]"} height={"[56px]"} />
+        </div>
       </main>
       <Footer />
     </>

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 function useApi(urls = "") {
-  const { token } = useSelector((s) => s.users);
+  const { token } = useSelector((s) => s.auth);
 
   const [requests, setRequests] = useState({
     baseURL: import.meta.env.VITE_APP_BASEURL || urls,

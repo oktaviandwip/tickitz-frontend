@@ -12,7 +12,7 @@ const Button = ({ text, width, height, link }) => {
     <button
       type="submit"
       value="Submit"
-      className={`w-full md:w-${width} h-${height} bg-blue rounded-md flex justify-center items-center text-sm text-white leading-6 tracking-[0.75px] transform active:scale-90 active:opacity-75 hover:bg-opacity-90 transition duration-300`}
+      className={`w-full md:w-${width} h-${height} bg-blue rounded-md flex justify-center items-center text-sm text-white leading-6 tracking-wider transform active:scale-90 active:opacity-75 hover:bg-opacity-90 transition duration-300`}
       onClick={handleClick}
     >
       {text}

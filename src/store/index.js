@@ -10,6 +10,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import authReducer from "./reducer/auth";
 import userReducer from "./reducer/user";
 
 const persistConfig = {
@@ -18,7 +19,8 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
-  users: userReducer,
+  auth: authReducer,
+  user: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
