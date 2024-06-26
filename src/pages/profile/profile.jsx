@@ -13,7 +13,7 @@ import AccountSettingsMobile from "../../components/profile/AccountSettingsMobil
 import threeDots from "../../assets/three-dots.svg";
 import loyaltyPoints from "../../assets/loyalty-points.svg";
 import loyaltyProgress from "../../assets/loyalty-progress.svg";
-import photoProfile from "../../assets/photo-profile.svg";
+import photoProfile from "../../assets/photo-profile.png";
 import useApi from "../../../utils/useApi";
 
 const Profile = () => {
