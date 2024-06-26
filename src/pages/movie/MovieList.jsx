@@ -10,12 +10,12 @@ import Pagination from "../../components/elements/Pagination";
 import search from "../../assets/search.svg";
 import avenger from "../../assets/background-login.svg";
 import blackWidow from "../../assets/black-widow.svg";
-import spiderman from "../../assets/spiderman-homecoming.png";
+import roblox from "../../assets/roblox.jpg";
 import useApi from "../../../utils/useApi";
 
 const MovieList = () => {
   const api = useApi();
-  const bgImages = [avenger, blackWidow, spiderman];
+  const bgImages = [avenger, blackWidow, roblox];
   const title = [
     "LIST MOVIE OF THE WEEK",
     "THIS WEEK'S TOP FILMS",
@@ -29,6 +29,7 @@ const MovieList = () => {
   const genres = ["Drama", "Action", "Comedy", "Adventure", "Sci-Fi"];
 
   const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [pageLength, setPageLength] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,11 +44,13 @@ const MovieList = () => {
 
   // Pagination
   function handlePagination(page) {
+    setIsLoading(true);
     api({
       method: "GET",
       url: `/movies?page=${page}`,
     })
       .then(({ data }) => {
+        setIsLoading(false);
         setData(data.rows);
         setPageLength(Math.ceil(data.meta.total / 12));
       })
@@ -73,11 +76,13 @@ const MovieList = () => {
   }, [activeGenre]);
 
   function handleFilter(page) {
+    setIsLoading(true);
     api({
       method: "GET",
       url: `/movies/?genre=${activeGenre}&page=${page}`,
     })
       .then(({ data }) => {
+        setIsLoading(false);
         setData(data.rows);
         setPageLength(Math.ceil(data.meta.total / 12));
       })
@@ -89,11 +94,13 @@ const MovieList = () => {
 
   // Search Movies
   function handleSearch(page) {
+    setIsLoading(true);
     api({
       method: "GET",
       url: `/movies/?search=${searchQuery}&page=${page}`,
     })
       .then(({ data }) => {
+        setIsLoading(false);
         setData(data.rows);
         setPageLength(Math.ceil(data.meta.total / 12));
       })
@@ -167,21 +174,27 @@ const MovieList = () => {
 
         {/* Movie List */}
         <div className="whitespace-nowrap overflow-x-auto mt-8 md:mt-14 pl-1">
-          <div className="grid grid-cols-4 grid-rows-3 w-[1000px] md:w-[1106px]">
-            {data &&
-              data.map((e) => {
-                return (
-                  <Movie
-                    key={e.id}
-                    image={e.image}
-                    name={e.movie_name}
-                    genres={e.category}
-                    recommended={e.recommended}
-                    detail={`/movies/${e.detail}`}
-                  />
-                );
-              })}
-          </div>
+          {isLoading ? (
+            <div className="flex min-h-screen text-[52px] justify-center items-center">
+              Loading...
+            </div>
+          ) : (
+            <div className="grid grid-cols-4 grid-rows-3 w-[1000px] md:w-[1106px]">
+              {data &&
+                data.map((e) => {
+                  return (
+                    <Movie
+                      key={e.id}
+                      image={e.image}
+                      name={e.movie_name}
+                      genres={e.category}
+                      recommended={e.recommended}
+                      detail={`/movies/${e.detail}`}
+                    />
+                  );
+                })}
+            </div>
+          )}
         </div>
 
         {/* Pagination */}

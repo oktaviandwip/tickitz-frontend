@@ -100,7 +100,7 @@ const AdminMovies = () => {
 
   return (
     <div>
-      <div className="w-full min-h-screen bg-dark-grey bg-opacity-[0.2] pt-11">
+      <div className="w-full min-h-screen bg-dark-grey bg-opacity-[0.2] py-11">
         <Header />
         <main className="relative w-[327px] md:w-[768px] lg:w-[1000px] xl:w-[1106px] mx-auto">
           <div className="w-full h-[635px] md:h-[567px] flex flex-col justify-start items-center rounded-2xl bg-white mb-[49px]">
