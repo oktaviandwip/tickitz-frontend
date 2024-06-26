@@ -65,14 +65,15 @@ const Carousel = ({ bgImages, title, subtitle }) => {
             className="cursor-pointer"
           >
             <div
-              className={`h-2 bg-contain bg-center bg-no-repeat ${
-                activeCarousel && currentIndex === slideIndex
-                  ? "bg-[image:var(--active-indicator)] w-16"
-                  : "bg-[image:var(--non-active-indicator)] w-6"
-              }`}
+              className={`${
+                activeCarousel && currentIndex === slideIndex ? "w-16" : "w-6"
+              } h-2 bg-contain bg-center bg-no-repeat`}
               style={{
-                "--active-indicator": `url(${activeIndicator})`,
-                "--non-active-indicator": `url(${nonActiveIndicator})`,
+                backgroundImage: `url(${
+                  activeCarousel && currentIndex === slideIndex
+                    ? activeIndicator
+                    : nonActiveIndicator
+                })`,
               }}
             ></div>
           </div>
