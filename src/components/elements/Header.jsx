@@ -8,7 +8,7 @@ import hamburgerMenu from "../../assets/hamburger-menu.svg";
 import closeMenu from "../../assets/close-menu.svg";
 import dropdownProfile from "../../assets/dropdown-profile.svg";
 import searchIconProfile from "../../assets/search-icon-profile.svg";
-import photoProfile from "../../assets/photo-profile.svg";
+import photoProfile from "https://www.svgrepo.com/svg/507445/user-square";
 
 const Header = () => {
   const navigate = useNavigate();
