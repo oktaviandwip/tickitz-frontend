@@ -6,7 +6,7 @@ function useApi(urls = "") {
   const { token } = useSelector((s) => s.auth);
 
   const [requests, setRequests] = useState({
-    baseURL: import.meta.env.VITE_APP_BASEURL || urls,
+    baseURL: "https://tickitz-backend-production-d645.up.railway.app" || urls,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
