@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import nonActiveIndicator from "../../assets/non-active-indicator.png";
+import nonActiveIndicator from "../../assets/non-active-indicator.svg";
 import activeIndicator from "../../assets/active-indicator.png";
 
 const Carousel = ({ bgImages, title, subtitle }) => {
