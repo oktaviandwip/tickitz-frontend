@@ -37,11 +37,7 @@ export default createBrowserRouter([
 
   {
     path: "/movies",
-    element: (
-      <PrivateRoute>
-        <MovieList />
-      </PrivateRoute>
-    ),
+    element: <MovieList />,
   },
 
   {
