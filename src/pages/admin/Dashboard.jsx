@@ -1,4 +1,4 @@
-import Chart from "../../components/Dashboard/Chart";
+import Chart from "../../components/dashboard/Chart";
 import Header from "../../components/elements/Header";
 
 const Dashboard = () => {

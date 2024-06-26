@@ -4,7 +4,7 @@ import Header from "../../components/elements/Header";
 import Footer from "../../components/elements/Footer";
 import Carousel from "../../components/movie/Carousel";
 import Movie from "../../components/movie/Movie";
-import Newsletter from "../../components/Home/Newsletter";
+import Newsletter from "../../components/home/Newsletter";
 import Pagination from "../../components/elements/Pagination";
 
 import search from "../../assets/search.svg";

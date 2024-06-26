@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Header from "../../components/elements/Header";
-import ListMovie from "../../components/Admin/ListMovie";
+import ListMovie from "../../components/admin/ListMovie";
 import Pagination from "../../components/elements/Pagination";
 
 import calendarIcon from "../../assets/calendar-icon.svg";
