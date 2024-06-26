@@ -42,6 +42,7 @@ const AccountSettingsMobile = ({
               className=" outline-none md:text-sm lg:text-base tracking-wide rounded-md border-1 border-grey px-5 md:px-11 py-4 bg-lighter-grey"
               placeholder="Enter your first name"
               onChange={handleChange}
+              maxLength={255}
             />
           </div>
           <div className="h-[81px] flex flex-col justify-between mb-3">
@@ -55,6 +56,7 @@ const AccountSettingsMobile = ({
               className=" outline-none md:text-sm lg:text-base tracking-wide rounded-md border-1 border-grey px-5 md:px-11 py-4 bg-lighter-grey"
               placeholder="Enter your last name"
               onChange={handleChange}
+              maxLength={255}
             />
           </div>
           <div className="h-[81px] flex flex-col justify-between mb-3">
@@ -89,10 +91,11 @@ const AccountSettingsMobile = ({
               <input
                 name="phone_number"
                 type="text"
-                value={data.phone_number}
+                value={data.phone_number || ""}
                 className="bg-transparent outline-none md:text-sm lg:text-base tracking-wide"
                 placeholder="Enter your phone"
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
+                maxLength={15}
               />
             </div>
           </div>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/elements/Header";
 import Footer from "../../components/elements/Footer";
 import Advantage from "../../components/home/Advantage";
-import Movie from "../../components/home/Movie";
+import Movie from "../../components/movie/Movie";
 import Title from "../../components/home/Title";
 import Newsletter from "../../components/home/Newsletter";
 import Arrow from "../../components/home/Arrow";
@@ -42,6 +42,7 @@ const Home = () => {
     }
   };
 
+  // Recommended Fields
   const recommended = [
     {
       image: blackWidow,
@@ -112,7 +113,7 @@ const Home = () => {
   ];
 
   return (
-    <>
+    <div>
       <Header />
       <main className="pt-[51px] w-[375px] md:w-[880px] lg:w-[1106px] mx-auto">
         <div className="mx-auto flex flex-col md:flex-row items-center justify-between">
@@ -268,7 +269,7 @@ const Home = () => {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

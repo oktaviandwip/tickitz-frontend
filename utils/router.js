@@ -4,6 +4,7 @@ import PrivateRoute from "./privateRoute";
 import Home from "../src/pages/home/Home";
 import Login from "../src/pages/auth/Login";
 import Signup from "../src/pages/auth/Signup";
+import ResetPassword from "../src/pages/auth/ResetPassword";
 import MovieList from "../src/pages/movie/MovieList";
 import MovieDetails from "../src/pages/movie/MovieDetails";
 import Profile from "../src/pages/profile/profile";
@@ -27,6 +28,11 @@ export default createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
 
   {

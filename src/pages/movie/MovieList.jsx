@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Header from "../../components/elements/Header";
 import Footer from "../../components/elements/Footer";
 import Carousel from "../../components/movie/Carousel";
-import Movie from "../../components/home/Movie";
+import Movie from "../../components/movie/Movie";
 import Newsletter from "../../components/home/Newsletter";
 import Pagination from "../../components/elements/Pagination";
 
@@ -38,9 +38,14 @@ const MovieList = () => {
 
   // Get All Movies
   useEffect(() => {
+    handlePagination(1);
+  }, []);
+
+  // Pagination
+  function handlePagination(page) {
     api({
       method: "GET",
-      url: `/movies/?page=1`,
+      url: `/movies?page=${page}`,
     })
       .then(({ data }) => {
         setData(data.rows);
@@ -50,7 +55,7 @@ const MovieList = () => {
         console.log(response.data);
         alert(`ERROR: ${response.data.error}`);
       });
-  }, []);
+  }
 
   // Filter by Genre
   useEffect(() => {
@@ -89,7 +94,6 @@ const MovieList = () => {
       url: `/movies/?search=${searchQuery}&page=${page}`,
     })
       .then(({ data }) => {
-        console.log("sukses");
         setData(data.rows);
         setPageLength(Math.ceil(data.meta.total / 12));
       })
@@ -99,23 +103,8 @@ const MovieList = () => {
       });
   }
 
-  // Pagination
-  const handlePagination = (page) => {
-    api({
-      method: "GET",
-      url: `/movies?page=${page}`,
-    })
-      .then(({ data }) => {
-        setData(data.rows);
-      })
-      .catch(({ response }) => {
-        console.log(response.data);
-        alert(`ERROR: ${response.data.error}`);
-      });
-  };
-
   return (
-    <>
+    <div>
       <Header />
       <Carousel bgImages={bgImages} title={title} subtitle={subtitle} />
       <main className="w-[327px] md:w-[768px] lg:w-[1000px] xl:w-[1106px] mx-auto">
@@ -215,7 +204,7 @@ const MovieList = () => {
         <Newsletter />
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

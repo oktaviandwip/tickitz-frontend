@@ -34,7 +34,7 @@ const Movie = ({
           </div>
         </div>
       </div>
-      <div className="w-[90%] text-lg md:text-2xl font-bold leading-[34px] tracking-[1px] my-[11px] md:my-[19px] truncate">
+      <div className="w-[90%] text-lg md:text-2xl font-bold leading-[34px] tracking-[1px] my-[11px] md:my-[19px] capitalize truncate">
         {name}
       </div>
       <div
@@ -48,7 +48,7 @@ const Movie = ({
         {genres.map((genre, index) => (
           <span
             key={index}
-            className="px-[18px] py-1 mr-2 mb-2 rounded-full text-dark-grey bg-light-grey tracking-[0.75px]"
+            className="px-[18px] py-1 mr-2 mb-2 rounded-full text-dark-grey bg-light-grey tracking-[0.75px] capitalize"
           >
             {genre}
           </span>

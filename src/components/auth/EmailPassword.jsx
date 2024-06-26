@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 export default function Input({
+  title,
   type,
   name,
   placeholder,
@@ -27,7 +28,7 @@ export default function Input({
   return (
     <div className="h-[97px]">
       <div className="capitalize font-semibold text-semi-black mb-3">
-        {name}
+        {title}
       </div>
       <div
         className={`relative border-1 h-16 rounded-md ${

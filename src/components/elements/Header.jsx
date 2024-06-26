@@ -21,11 +21,6 @@ const Header = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [profileClicked, setProfileClicked] = useState(false);
 
-  // Handle Link Click
-  const handleLinkClick = (link) => {
-    setSidebarOpen(false);
-  };
-
   // Header Menu
   const user = [
     { nav: "Home", link: "/" },
@@ -96,33 +91,30 @@ const Header = () => {
         {/* Header Menu */}
         <nav
           className={`${
-            profile.role === "admin" && location.pathname.startsWith("/admin")
-              ? "w-[172px]"
-              : "w-[265px]"
+            location.pathname.startsWith("/admin") ? "w-[172px]" : "w-[265px]"
           } hidden md:flex justify-between text-sm`}
         >
-          {(profile.role === "admin" && location.pathname.startsWith("/admin")
-            ? admin
-            : user
-          ).map((e, index) => (
-            <Link
-              key={index}
-              to={e.link}
-              onClick={() => handleLinkClick(e.link)}
-            >
-              <div
-                className={`${
-                  e.link === "/" && location.pathname === "/"
-                    ? "text-white font-semibold bg-blue rounded-md p-2"
-                    : e.link !== "/" && location.pathname.startsWith(e.link)
-                    ? "text-white font-semibold bg-blue rounded-md p-2"
-                    : "p-2"
-                }`}
+          {(location.pathname.startsWith("/admin") ? admin : user).map(
+            (e, index) => (
+              <Link
+                key={index}
+                to={e.link}
+                onClick={() => setSidebarOpen(false)}
               >
-                {e.nav}
-              </div>
-            </Link>
-          ))}
+                <div
+                  className={`${
+                    e.link === "/" && location.pathname === "/"
+                      ? "text-white font-semibold bg-blue rounded-md p-2"
+                      : e.link !== "/" && location.pathname.startsWith(e.link)
+                      ? "text-white font-semibold bg-blue rounded-md p-2"
+                      : "p-2"
+                  }`}
+                >
+                  {e.nav}
+                </div>
+              </Link>
+            )
+          )}
         </nav>
 
         {/* Profile */}
@@ -201,14 +193,12 @@ const Header = () => {
             <Link
               className="border-1 border-blue rounded-[5px] text-blue px-[23px] py-[14px]"
               to="/login"
-              onClick={() => handleLinkClick("/login")}
             >
               Sign In
             </Link>
             <Link
               className="bg-blue rounded-[5px] text-white px-[23px] py-[14px]"
               to="/signup"
-              onClick={() => handleLinkClick("/signup")}
             >
               Sign Up
             </Link>
@@ -245,14 +235,14 @@ const Header = () => {
               : profile.role === "admin"
               ? adminSidebar
               : userSidebar
-            ).map((e, index) => (
+            ).map((d, index) => (
               <li key={index}>
                 <Link
-                  to={e.link}
-                  onClick={(event) => {
-                    handleLinkClick(e.link);
-                    if (e.nav === "Sign Out") {
-                      event.preventDefault();
+                  to={d.link}
+                  onClick={(e) => {
+                    setSidebarOpen(false);
+                    if (d.nav === "Sign Out") {
+                      e.preventDefault();
                       dispatch(logout());
                       navigate("/login");
                     }
@@ -260,14 +250,14 @@ const Header = () => {
                 >
                   <span
                     className={`${
-                      e.link === "/" && location.pathname === "/"
+                      d.link === "/" && location.pathname === "/"
                         ? "text-white font-semibold bg-blue rounded-md p-2"
-                        : e.link !== "/" && location.pathname.startsWith(e.link)
+                        : d.link !== "/" && location.pathname.startsWith(d.link)
                         ? "text-white font-semibold bg-blue rounded-md p-2"
                         : ""
                     }`}
                   >
-                    {e.nav}
+                    {d.nav}
                   </span>
                 </Link>
               </li>

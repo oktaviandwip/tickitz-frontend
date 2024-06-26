@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Header from "../../components/elements/Header";
 import ListMovie from "../../components/admin/ListMovie";
@@ -15,7 +15,7 @@ const AdminMovies = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState(null);
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState("");
   const [pageLength, setPageLength] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [isSorting, setIsSorting] = useState(false);
@@ -67,8 +67,8 @@ const AdminMovies = () => {
   };
 
   useEffect(() => {
-    setIsSorting(true);
-    if (date !== null) {
+    if (date !== "") {
+      setIsSorting(true);
       handleDateSorting(1);
     }
   }, [date]);
@@ -88,6 +88,7 @@ const AdminMovies = () => {
       });
   };
 
+  // Columns header for movie list
   const headerItems = [
     { label: "No", width: "w-[17px]" },
     { label: "Thumbnail", width: "w-[61px]" },
@@ -98,15 +99,11 @@ const AdminMovies = () => {
     { label: "Action", width: "w-[119px]" },
   ];
 
-  const handleClick = (link) => {
-    link ? navigate(link) : navigate("#");
-  };
-
   return (
-    <>
-      <div className="w-full min-h-screen bg-dark-grey bg-opacity-[0.2] py-11">
-        <Header userRole={"admin"} />
-        <main className="w-[327px] md:w-[768px] lg:w-[1000px] xl:w-[1106px] mx-auto">
+    <div>
+      <div className="w-full min-h-screen bg-dark-grey bg-opacity-[0.2] pt-11">
+        <Header />
+        <main className="relative w-[327px] md:w-[768px] lg:w-[1000px] xl:w-[1106px] mx-auto">
           <div className="w-full h-[635px] md:h-[567px] flex flex-col justify-start items-center rounded-2xl bg-white mb-[49px]">
             {/* Title */}
             <div className="w-full h-[57px] flex justify-between items-center mt-[39px] px-[21px] md:px-[47px]">
@@ -131,7 +128,7 @@ const AdminMovies = () => {
                       type="text"
                       value={displayDate}
                       readOnly
-                      className="absolute top-[2px] left-0 w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[14px] z-20"
+                      className="absolute top-[2px] left-0 w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] tracking-wide pr-6 pt-[14px] z-20"
                     />
                     <input
                       type="date"
@@ -150,13 +147,11 @@ const AdminMovies = () => {
                 </div>
 
                 {/* Add Movies Button*/}
-                <button
-                  type="submit"
-                  value="Submit"
+                <Link
+                  to={"/admin/movies/add"}
                   className={`btn w-[91px] md:w-[140px] h-[40px] md:h-[56px] bg-blue rounded-md flex justify-center items-center text-sm text-white leading-6 tracking-[0.75px] transform active:scale-90 active:opacity-75 hover:bg-opacity-90 transition duration-300`}
-                  onClick={() => handleClick("/admin/movies/add")}
                 >
-                  <div className="hidden md:flex">Add Movies</div>
+                  <div className="hidden md:flex">Add Movie</div>
                   <div className="flex md:hidden">
                     <img
                       src={addMovies}
@@ -165,7 +160,7 @@ const AdminMovies = () => {
                     />
                     <div>Add</div>
                   </div>
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -235,21 +230,20 @@ const AdminMovies = () => {
                   })}
               </div>
             </div>
-
             {/* Pagination */}
-            <div className="flex flex-col items-center mt-10">
-              <Pagination
-                radius={"[8px]"}
-                pageLength={pageLength}
-                pageNumber={pageNumber}
-                setPageNumber={setPageNumber}
-                handleClick={isSorting ? handleDateSorting : handlePagination}
-              />
-            </div>
+          </div>
+          <div className="absolute bottom-10 inset-x-0 flex flex-col items-center">
+            <Pagination
+              radius={"[8px]"}
+              pageLength={pageLength}
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              handleClick={isSorting ? handleDateSorting : handlePagination}
+            />
           </div>
         </main>
       </div>
-    </>
+    </div>
   );
 };
 

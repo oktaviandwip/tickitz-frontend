@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 import editIcon from "../../assets/edit-icon.svg";
 import eyeIcon from "../../assets/eye-icon.svg";
 import deleteIcon from "../../assets/delete-icon.svg";
@@ -18,7 +19,7 @@ const ListMovie = ({
 
   // Handle Delete Movie
   const handleDelete = async (id) => {
-    if (window.confirm("Would you like to delete this movie?")) {
+    if (window.confirm(`Would you like to delete "${name}"?`)) {
       try {
         await api({ method: "DELETE", url: `/admin/movies/${id}` });
         location.reload();

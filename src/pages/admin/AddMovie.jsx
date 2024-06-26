@@ -10,12 +10,22 @@ import useApi from "../../../utils/useApi";
 const AddMovies = () => {
   const api = useApi();
   const navigate = useNavigate();
-  const [data, setData] = useState({ time: [], recommended: false });
+  const [data, setData] = useState({
+    time: [],
+    recommended: false,
+  });
 
   // File Handler
   const fileHandler = (e) => {
     const file = e.target.files[0];
+    const maxFileSize = 1 * 1024 * 1024;
+
     if (file) {
+      if (file.size > maxFileSize) {
+        alert("File size must be under 1 MB!");
+        return;
+      }
+
       const tmpdata = { ...data };
       tmpdata["image"] = file;
 
@@ -32,6 +42,10 @@ const AddMovies = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     let newData = { ...data };
+
+    if (name === "minutes" && (value < 0 || value > 59)) {
+      return;
+    }
 
     if (name === "time") {
       if (screen.width <= 768 && newData.time.length < 8) {
@@ -83,6 +97,7 @@ const AddMovies = () => {
       formData.append(`${key}`, data[key]);
     }
 
+    // Send API request
     api({
       method: "POST",
       url: "/admin/movies",
@@ -140,6 +155,7 @@ const AddMovies = () => {
               className={`relative bg-transparent w-full h-[64px] outline-none`}
               placeholder="Enter movie name"
               onChange={handleChange}
+              maxLength={255}
               required
             />
           </div>
@@ -158,6 +174,7 @@ const AddMovies = () => {
               className={`relative bg-transparent w-full h-[64px] outline-none`}
               placeholder="Enter category"
               onChange={handleChange}
+              maxLength={255}
               required
             />
           </div>
@@ -251,6 +268,7 @@ const AddMovies = () => {
               className={`relative bg-transparent w-full h-[64px] outline-none`}
               placeholder="Enter director name"
               onChange={handleChange}
+              maxLength={255}
               required
             />
           </div>
@@ -269,6 +287,7 @@ const AddMovies = () => {
               className={`relative bg-transparent w-full h-[64px] outline-none`}
               placeholder="Enter casts"
               onChange={handleChange}
+              maxLength={255}
               required
             />
           </div>
@@ -300,6 +319,7 @@ const AddMovies = () => {
               className={`relative bg-transparent w-full h-[64px] outline-none`}
               placeholder="Enter location"
               onChange={handleChange}
+              maxLength={255}
               required
             />
           </div>
@@ -367,8 +387,9 @@ const AddMovies = () => {
             />
           </div>
           <div className="grid grid-cols-4 md:grid-cols-11 gap-3">
-            {data.time &&
-              data.time.map((t, index) => <div key={index}>{t}</div>)}
+            {data.time.map((t, index) => (
+              <div key={index}>{t}</div>
+            ))}
           </div>
         </div>
         <div className="w-full border-t-1 border-[#E6EAF0] my-6"></div>

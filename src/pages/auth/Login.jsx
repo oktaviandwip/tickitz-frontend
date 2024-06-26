@@ -58,7 +58,7 @@ const Login = () => {
     }
   };
 
-  // Input Fields
+  // Inputs Fields
   const inputs = [
     {
       icon: "mage:email",
@@ -97,6 +97,7 @@ const Login = () => {
               {inputs.map((field, index) => (
                 <EmailPassword
                   key={index}
+                  title={field.name}
                   name={field.name}
                   type={field.type}
                   placeholder={field.placeholder}
@@ -105,9 +106,12 @@ const Login = () => {
                   onChange={handleChange}
                 />
               ))}
-              <p className="text-sm md:text-base text-blue text-right font-inter tracking-wide">
+              <Link
+                to="/reset-password"
+                className="text-sm md:text-base text-blue text-right font-inter tracking-wide"
+              >
                 Forgot your password?
-              </p>
+              </Link>
 
               <Button text={"Login"} width={"full"} height={"[112px]"} />
             </form>

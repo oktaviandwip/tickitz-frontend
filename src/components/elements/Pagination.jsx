@@ -42,7 +42,7 @@ const Pagination = ({
         <img
           src={nextPage}
           alt="next page"
-          className={`${
+          className={`cursor-pointer ${
             pageLength < 2 || pageNumber === 1
               ? "hidden"
               : "absolute left-[-50px] md:left-[-60px] rotate-180"
@@ -60,7 +60,7 @@ const Pagination = ({
           <div
             key={page}
             type="button"
-            className={`rounded-${radius} px-[15px] py-[8px] me-2 md:me-5 ${
+            className={`cursor-pointer rounded-${radius} px-[15px] py-[8px] me-2 md:me-5 ${
               page === activePage
                 ? "bg-blue text-white shadow-xl"
                 : "bg-light-grey text-dark-grey"
@@ -79,7 +79,7 @@ const Pagination = ({
         <img
           src={nextPage}
           alt="next page"
-          className={`${
+          className={`cursor-pointer ${
             pageLength < 2 || pageNumber === pageLength
               ? "hidden"
               : "absolute right-[-40px]"

@@ -7,9 +7,8 @@ import useApi from "../../../utils/useApi";
 
 const EditMovies = () => {
   const api = useApi();
-  const navigate = useNavigate();
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [data, setData] = useState({});
 
   // Get the Movie Data

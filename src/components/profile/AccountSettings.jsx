@@ -37,6 +37,7 @@ const AccountSettings = ({
                     className=" outline-none md:text-sm lg:text-base tracking-wide rounded-md border-1 border-grey px-5 lg:px-11 py-4 bg-lighter-grey"
                     placeholder="Enter your first name"
                     onChange={handleChange}
+                    maxLength={255}
                   />
                 </div>
                 <div className="h-[98px] flex flex-col justify-between mb-3">
@@ -50,6 +51,7 @@ const AccountSettings = ({
                     className=" outline-none md:text-sm lg:text-base tracking-wide rounded-md border-1 border-grey px-5 lg:px-11 py-4 bg-lighter-grey"
                     placeholder="Enter your last name"
                     onChange={handleChange}
+                    maxLength={255}
                   />
                 </div>
                 <div className="h-[98px] flex flex-col justify-between mb-3">
@@ -77,17 +79,18 @@ const AccountSettings = ({
                       value={data.country_code}
                       onChange={handleChange}
                     >
-                      <option value={+62}>+62</option>
-                      <option value={+49}>+49</option>
-                      <option value={+33}>+33</option>
+                      <option value={62}>+62</option>
+                      <option value={49}>+49</option>
+                      <option value={33}>+33</option>
                     </select>
                     <input
                       name="phone_number"
                       type="text"
-                      value={data.phone_number}
+                      value={data.phone_number || ""}
                       className="bg-transparent outline-none md:text-sm lg:text-base tracking-wide"
                       placeholder="Enter your phone"
                       onChange={handleChange}
+                      maxLength={15}
                     />
                   </div>
                 </div>

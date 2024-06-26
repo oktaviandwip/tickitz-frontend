@@ -13,6 +13,7 @@ import AccountSettingsMobile from "../../components/profile/AccountSettingsMobil
 import threeDots from "../../assets/three-dots.svg";
 import loyaltyPoints from "../../assets/loyalty-points.svg";
 import loyaltyProgress from "../../assets/loyalty-progress.svg";
+import photoProfile from "../../assets/photo-profile.svg";
 import useApi from "../../../utils/useApi";
 
 const Profile = () => {
@@ -21,11 +22,11 @@ const Profile = () => {
   const navigate = useNavigate();
   const { profile } = useSelector((s) => s.user);
 
+  const [data, setData] = useState({});
   const [activePage, setActivePage] = useState("account settings");
   const [isShowingDetail1, setIsShowingDetail1] = useState(false);
   const [isShowingDetail2, setIsShowingDetail2] = useState(false);
   const [isShowingDetail3, setIsShowingDetail3] = useState(false);
-  const [data, setData] = useState({});
   const [editProfile, setEditProfile] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -36,7 +37,7 @@ const Profile = () => {
     confirmPasswordMobile: false,
   });
 
-  // Close the Form Mobile if Screen Wider
+  // Close the form mobile if the screen wider
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
@@ -116,7 +117,9 @@ const Profile = () => {
     // Create FormData
     const formData = new FormData();
     for (const key in data) {
-      formData.append(key, data[key]);
+      if (data[key] !== null) {
+        formData.append(key, data[key]);
+      }
     }
 
     // Send API request
@@ -127,7 +130,6 @@ const Profile = () => {
       data: formData,
     })
       .then(({ data }) => {
-        console.log(data);
         alert("Profile updated successfully!");
         dispatch(getProfile(data.rows[0]));
         navigate("/");
@@ -150,7 +152,7 @@ const Profile = () => {
     }`;
 
   return (
-    <>
+    <div>
       <div className="w-full min-h-screen bg-dark-grey bg-opacity-[0.2] py-11">
         <Header />
         <main className="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-stretch w-[375px] md:w-[771px] lg:w-[1021px] xl:w-[1226px] mx-auto mt-14">
@@ -215,12 +217,13 @@ const Profile = () => {
                   <div
                     className="size-[136px] rounded-full shadow-lg bg-cover bg-center bg-no-repeat"
                     style={{
-                      backgroundImage: `url(${data.photo_profile})`,
+                      backgroundImage: `url(${
+                        data.photo_profile || photoProfile
+                      })`,
                     }}
                   />
                   <input
                     type="file"
-                    id="upload-image"
                     className="absolute top-0 w-full bg-transparent outline-none z-20 opacity-0"
                     onChange={fileHandler}
                   />
@@ -320,7 +323,7 @@ const Profile = () => {
         </main>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Icon from "../../components/auth/TickitzIcon.jsx";
 import Background from "../../components/auth/Background.jsx";
+import EmailPassword from "../../components/auth/EmailPassword.jsx";
+import Button from "../../components/elements/Button.jsx";
+import GoogleFb from "../../components/auth/GoogleFb.jsx";
+
 import numberOne from "../../assets/number-1.svg";
 import numberTwo from "../../assets/number-2.svg";
 import numberThree from "../../assets/number-3.svg";
 import stripe from "../../assets/stripe.svg";
-import EmailPassword from "../../components/auth/EmailPassword.jsx";
-import Button from "../../components/elements/Button.jsx";
-import GoogleFb from "../../components/auth/GoogleFb.jsx";
 import useApi from "../../../utils/useApi.js";
 
 const SignUp = () => {
@@ -91,6 +92,7 @@ const SignUp = () => {
               {inputs.map((field, index) => (
                 <EmailPassword
                   key={index}
+                  title={field.name}
                   name={field.name}
                   type={field.type}
                   placeholder={field.placeholder}

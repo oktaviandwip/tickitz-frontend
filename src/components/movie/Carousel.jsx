@@ -35,12 +35,14 @@ const Carousel = ({ bgImages, title, subtitle }) => {
           backgroundPosition: "0 12.5%",
         }}
       >
-        <div className="absolute w-[300px] md:w-[638px] top-[20%] left-[10%] min-[400px]:left-[18%] min-[500px]:left-[25%] md:left-[10%] text-center md:text-left">
-          <div className="text-white text-sm md:text-lg leading-[34px] tracking-[0.75px]">
-            {title[currentIndex]}
-          </div>
-          <div className="text-white text-[32px] md:text-[48px] leading-[48px] md:leading-[70px] tracking-[1px]">
-            {subtitle[currentIndex]}
+        <div className="absolute top-[20%] md:left-[10%] inset-x-0 md:inset-x-auto flex justify-center">
+          <div className="w-[300px] md:w-[638px] text-center md:text-left">
+            <div className="text-white text-sm md:text-lg leading-[34px] tracking-[0.75px]">
+              {title[currentIndex]}
+            </div>
+            <div className="text-white text-[32px] md:text-[48px] leading-[48px] md:leading-[70px] tracking-[1px]">
+              {subtitle[currentIndex]}
+            </div>
           </div>
         </div>
       </div>

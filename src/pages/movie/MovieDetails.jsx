@@ -19,6 +19,7 @@ const MovieDetails = () => {
   const api = useApi();
   const { name } = useParams();
 
+  const [data, setData] = useState({});
   const [details, setDetails] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [startIndex, setStartIndex] = useState(0);
@@ -38,19 +39,20 @@ const MovieDetails = () => {
       });
   }, []);
 
+  // Handle Change
+  const handleChange = (e) => {
+    const newData = { ...data, [e.target.name]: e.target.value };
+    setData(newData);
+  };
+
   // Bookings Field
   const bookings = [
     ["Date", "date", calendar, "2024-02-28"],
     ["Time", "time", time, "08:30"],
-    [
-      "Location",
-      "select",
-      location,
-      ["purwokerto", "banjarnegara", "purbalingga"],
-    ],
+    ["Location", "select", location, details.location],
   ];
 
-  // Cinemas
+  // Cinemas Field
   const cinemas = [ebvid, hiflix, cineone21, ebvid, hiflix, cineone21];
 
   // Pagination
@@ -59,9 +61,9 @@ const MovieDetails = () => {
   };
 
   return (
-    <>
+    <div>
       <Header />
-      {/* Hero Section */}
+      {/* Carousel */}
       <div
         className="w-full h-[475px] md:h-[415px] shadow-inset bg-cover bg-center bg-no-repeat"
         style={{
@@ -83,7 +85,7 @@ const MovieDetails = () => {
           {/* Movie Details */}
           <div className="w-full flex flex-col items-center md:items-start">
             {/* Name & Genres */}
-            <div className=" text-center md:text-left text-xl md:text-[32px] leading-[34px] font-bold tracking-[1px] my-6">
+            <div className=" text-center md:text-left text-xl md:text-[32px] leading-[34px] font-bold tracking-[1px] my-6 capitalize">
               {details.movie_name}
             </div>
             <div className="flex space-x-2">
@@ -91,7 +93,7 @@ const MovieDetails = () => {
                 details.category.map((genre, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 mb-2 rounded-full text-dark-grey bg-light-grey tracking-wider"
+                    className="px-3 py-1 mb-2 rounded-full text-dark-grey bg-light-grey tracking-wider capitalize"
                   >
                     {genre}
                   </span>
@@ -116,7 +118,7 @@ const MovieDetails = () => {
                 <div className="text-sm text-dark-grey leading-6 tracking-[0.75px]">
                   Directed by
                 </div>
-                <div className="leading-8 tracking-[0.75px]">
+                <div className="leading-8 tracking-[0.75px] capitalize">
                   {details.director}
                 </div>
               </div>
@@ -134,7 +136,7 @@ const MovieDetails = () => {
                 <div className="text-sm text-dark-grey leading-6 tracking-[0.75px]">
                   Casts
                 </div>
-                <div className="leading-8 tracking-[0.75px] flex">
+                <div className="flex leading-8 tracking-[0.75px] capitalize">
                   {details.casts && details.casts.join(", ")}
                 </div>
               </div>
@@ -158,7 +160,7 @@ const MovieDetails = () => {
               <div key={index} className="relative flex flex-col">
                 <div className="absolute top-[18px] md:top-[65px] left-6 w-[250px] md:w-[160px] lg:w-[234px] flex justify-between">
                   <img src={d[2]} alt={`${d[1]} icon`} className="z-30" />
-                  <img src={dropdown} alt="dropdown icon" className="z-10" />
+                  <img src={dropdown} alt="Dropdown icon" className="z-10" />
                 </div>
                 <label
                   htmlFor={d[1]}
@@ -169,21 +171,26 @@ const MovieDetails = () => {
                 <div className="w-full md:w-[200px] lg:w-[284px] h-14 bg-[#EFF0F6] rounded-md">
                   {index < 2 ? (
                     <input
-                      type={d[1]}
                       id={d[1]}
+                      name={d[1]}
+                      type={d[1]}
                       value={d[3]}
                       className="relative w-[300px] md:w-[210px] lg:w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[14px] z-20"
+                      onChange={handleChange}
                     />
                   ) : (
                     <select
                       id={d[0]}
-                      className="relative w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[16px] z-20 appearance-none capitalize"
+                      name={d[0]}
+                      className="relative w-full bg-transparent outline-none pl-[60px] xl:pl-[66px] pr-6 pt-[16px] z-20 tracking-wide appearance-none capitalize"
+                      onChange={handleChange}
                     >
-                      {d[3].map((option, optionIndex) => (
-                        <option key={optionIndex} value={option}>
-                          {option}
-                        </option>
-                      ))}
+                      {d[3] &&
+                        d[3].map((option, optionIndex) => (
+                          <option key={optionIndex} value={option}>
+                            {option}
+                          </option>
+                        ))}
                     </select>
                   )}
                   <style>
@@ -243,7 +250,7 @@ const MovieDetails = () => {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
