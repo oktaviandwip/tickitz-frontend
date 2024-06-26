@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 import Header from "../../components/elements/Header";
 import Footer from "../../components/elements/Footer";
-import Advantage from "../../components/home/Advantage";
+import Advantage from "../../components/Home/Advantage";
 import Movie from "../../components/movie/Movie";
-import Title from "../../components/home/Title";
-import Newsletter from "../../components/home/Newsletter";
-import Arrow from "../../components/home/Arrow";
+import Title from "../../components/Home/Title";
+import Newsletter from "../../components/Home/Newsletter";
+import Arrow from "../../components/Home/Arrow";
 
 import jhonWick3 from "../../assets/jhon-wick-3.png";
 import spiderman from "../../assets/spiderman-homecoming.png";

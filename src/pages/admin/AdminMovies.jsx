@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Header from "../../components/elements/Header";
-import ListMovie from "../../components/admin/ListMovie";
+import ListMovie from "../../components/Admin/ListMovie";
 import Pagination from "../../components/elements/Pagination";
 
 import calendarIcon from "../../assets/calendar-icon.svg";
@@ -12,7 +12,6 @@ import useApi from "../../../utils/useApi";
 
 const AdminMovies = () => {
   const api = useApi();
-  const navigate = useNavigate();
 
   const [data, setData] = useState(null);
   const [date, setDate] = useState("");
