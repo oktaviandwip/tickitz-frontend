@@ -1,6 +1,6 @@
 ## 📝 About the Project
 
-**Tickitz** is an application for online ordering movie tickets.</li>
+**Tickitz** is an application for online ordering movie tickets.
 
 ## 🚀 Try It by Yourself
 
