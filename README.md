@@ -6,23 +6,25 @@
 
 To explore the application, follow these steps:
 
-1. **Visit the Application**:
-   Click the link to open the application in your browser: [Tickitz](https://tickitz.oktaviandwip.site/)
+<p><b>1. Visit the Application</b></p>
 
-2. **Login as Admin**:
+Click the link to open the application in your browser: [Tickitz](https://tickitz.oktaviandwip.site/)
+
+<p><b>2. Login as Admin</b></p>
+   
    Use the following credentials to log in:
    - **Email**: `admin@gmail.com`
    - **Password**: `admin1234`
 
 ## 🛠️ Installation Steps
 
-1. Clone the repository
+<p><b>1. Clone the repository</b></p>
 
 ```bash
 git clone https://github.com/oktaviandwip/tickitz-frontend
 ```
 
-2. Install dependencies
+<p><b>2. Install dependencies</b></p>
 
 ```bash
 npm install
@@ -30,7 +32,7 @@ npm install
 yarn install
 ```
 
-3. Run the app
+<p><b>3. Run the app</b></p>
 
 ```bash
 npm run dev
