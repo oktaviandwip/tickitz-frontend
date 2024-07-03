@@ -1,3 +1,11 @@
+## 📝 About the Project
+
+ <p>
+   <ul>
+     <li><strong>Tickitz</strong> is an application for online ordering movie tickets.</li>
+   </ul>
+ </p>
+
 ## 🛠️ Installation Steps
 
 1. Clone the repository
