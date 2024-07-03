@@ -18,13 +18,12 @@ Click the link to open the application in your browser: [Tickitz](https://tickit
 
 ## 🛠️ Installation Steps
 
-<p><b>1. Clone the repository</b></p>
-
+**1. Clone the repository**
 ```bash
 git clone https://github.com/oktaviandwip/tickitz-frontend
 ```
 
-<p><b>2. Install dependencies</b></p>
+**2. Install dependencies**
 
 ```bash
 npm install
@@ -32,7 +31,7 @@ npm install
 yarn install
 ```
 
-<p><b>3. Run the app</b></p>
+**3. Run the app**
 
 ```bash
 npm run dev
