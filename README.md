@@ -1,10 +1,18 @@
 ## 📝 About the Project
 
- <p>
-   <ul>
-     <li><strong>Tickitz</strong> is an application for online ordering movie tickets.</li>
-   </ul>
- </p>
+**Tickitz** is an application for online ordering movie tickets.</li>
+
+## 🚀 Try It by Yourself
+
+To explore the application, follow these steps:
+
+1. **Visit the Application**:
+   Click the link to open the application in your browser: [Tickitz](https://tickitz.oktaviandwip.site/)
+
+2. **Login as Admin**:
+   Use the following credentials to log in:
+   - **Email**: `admin@gmail.com`
+   - **Password**: `admin1234`
 
 ## 🛠️ Installation Steps
 
