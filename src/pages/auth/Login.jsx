@@ -58,6 +58,21 @@ const Login = () => {
     }
   };
 
+  // Google Login
+  function handleGoogleLogin() {
+    api({
+      method: "GET",
+      url: "/auth/google",
+    })
+      .then(({ data }) => {
+        window.open(data.data, "_self");
+      })
+      .catch(({ response }) => {
+        console.log(response.data);
+        alert(`ERROR: ${response.data.error}`);
+      });
+  }
+
   // Inputs Fields
   const inputs = [
     {
@@ -126,7 +141,7 @@ const Login = () => {
               </Link>
             </p>
 
-            <GoogleFb />
+            <GoogleFb handleGoogle={handleGoogleLogin} />
           </section>
         </div>
       </Background>

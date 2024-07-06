@@ -45,6 +45,21 @@ const SignUp = () => {
     }
   };
 
+  // Google Signup
+  function handleGoogleSignup() {
+    api({
+      method: "GET",
+      url: "/users/google",
+    })
+      .then(({ data }) => {
+        window.open(data.data, "_self");
+      })
+      .catch(({ response }) => {
+        console.log(response.data);
+        alert(`ERROR: ${response.data.error}`);
+      });
+  }
+
   // Input Fields
   const inputs = [
     {
@@ -126,7 +141,7 @@ const SignUp = () => {
               </Link>
             </p>
 
-            <GoogleFb />
+            <GoogleFb handleGoogle={handleGoogleSignup} />
           </section>
         </div>
       </Background>

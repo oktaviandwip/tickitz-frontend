@@ -9,7 +9,7 @@ import Pagination from "../../components/elements/Pagination";
 
 import search from "../../assets/search.svg";
 import avenger from "../../assets/background-login.svg";
-import blackWidow from "../../assets/black-widow.svg";
+import blackWidow from "../../assets/black-widow.png";
 import roblox from "../../assets/roblox.jpg";
 import useApi from "../../../utils/useApi";
 

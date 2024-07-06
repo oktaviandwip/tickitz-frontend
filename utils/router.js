@@ -3,6 +3,7 @@ import PrivateRoute from "./privateRoute";
 
 import Home from "../src/pages/home/Home";
 import Login from "../src/pages/auth/Login";
+import GoogleLogin from "../src/pages/auth/GoogleLogin";
 import Signup from "../src/pages/auth/Signup";
 import ResetPassword from "../src/pages/auth/ResetPassword";
 import MovieList from "../src/pages/movie/MovieList";
@@ -13,6 +14,7 @@ import AdminMovies from "../src/pages/admin/AdminMovies";
 import AddMovie from "../src/pages/admin/AddMovie";
 import EditMovie from "../src/pages/admin/EditMovie";
 import ReadMovie from "../src/pages/admin/ReadMovie";
+import GoogleSignup from "../src/pages/auth/GoogleSignup";
 
 export default createBrowserRouter([
   {
@@ -26,8 +28,18 @@ export default createBrowserRouter([
   },
 
   {
+    path: "/auth/google/callback",
+    element: <GoogleLogin />,
+  },
+
+  {
     path: "/signup",
     element: <Signup />,
+  },
+
+  {
+    path: "/users/google/callback",
+    element: <GoogleSignup />,
   },
 
   {

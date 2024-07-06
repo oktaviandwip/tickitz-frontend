@@ -13,7 +13,7 @@ import jhonWick3 from "../../assets/jhon-wick-3.png";
 import spiderman from "../../assets/spiderman-homecoming.png";
 import lionKing from "../../assets/lion-king.png";
 import roblox from "../../assets/roblox.jpg";
-import blackWidow from "../../assets/black-widow.svg";
+import blackWidow from "../../assets/black-widow.png";
 import theWitches from "../../assets/the-witches.svg";
 import tenet from "../../assets/tenet.svg";
 

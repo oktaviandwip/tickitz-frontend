@@ -1,7 +1,7 @@
 import googleIcon from "../../assets/google-icon-login.svg";
 import facebookIcon from "../../assets/facebook-icon-login.svg";
 
-const GoogleFb = () => {
+const GoogleFb = ({ handleGoogle }) => {
   return (
     <>
       <div className="my-5 flex items-center justify-between">
@@ -13,7 +13,10 @@ const GoogleFb = () => {
       </div>
 
       <div className="google-facebook flex justify-evenly md:justify-between">
-        <div className="flex justify-center items-center rounded shadow-md w-16 md:w-[45%] h-16 transform active:scale-90 active:opacity-75 transition duration-300">
+        <div
+          className="flex justify-center items-center rounded shadow-md w-16 md:w-[45%] h-16 cursor-pointer transform active:scale-90 active:opacity-75 transition duration-300"
+          onClick={handleGoogle}
+        >
           <img src={`${googleIcon}`} alt="Google icon" />
           <p className="hidden md:block text-lg text-dark-grey ml-6 tracking-[0.5px]">
             Google
