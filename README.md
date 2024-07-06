@@ -1,12 +1,29 @@
+## 📝 About the Project
+
+**Tickitz** is an application for online ordering movie tickets.
+
+## 🚀 Try It by Yourself
+
+To explore the application, follow these steps:
+
+<p><b>1. Visit the Application</b></p>
+
+Click the link to open the application in your browser: [Tickitz](https://tickitz.oktaviandwip.site/)
+
+<p><b>2. Login as Admin</b></p>
+   
+   Use the following credentials to log in:
+   - **Email**: `admin@gmail.com`
+   - **Password**: `admin1234`
+
 ## 🛠️ Installation Steps
 
-1. Clone the repository
-
+**1. Clone the repository**
 ```bash
 git clone https://github.com/oktaviandwip/tickitz-frontend
 ```
 
-2. Install dependencies
+**2. Install dependencies**
 
 ```bash
 npm install
@@ -14,7 +31,7 @@ npm install
 yarn install
 ```
 
-3. Run the app
+**3. Run the app**
 
 ```bash
 npm run dev
